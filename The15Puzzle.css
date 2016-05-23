@@ -1,0 +1,53 @@
+.block{
+	display: inline-block;
+	width: 62px;
+    height: 57px;
+    border: 2px solid #8B4513;
+    margin: 2px;
+    position: absolute;
+	text-align: center;
+	cursor: pointer;
+    font-weight: bold;
+    font-size: 48px;
+    color: #8B4513;
+    padding-top: 5px;
+    background-color: #FAEBD7;
+}
+
+.block:active { 
+  background: #ffa500;
+}
+
+#field{
+	display: block;
+	position: relative;
+	width: 276px;
+    height: 276px;
+	border: 5px solid #CD5C5C;
+    margin: 25px 0 0 0;
+    padding: 2px;
+}
+
+#newGame{
+	width:50%;
+	font-size: 18pt;
+	position: center;
+	font: 18pt serif; 
+}
+
+h1{
+	text-align: center;
+	color:#8B4513;
+	font: 36pt bold 110% serif;
+}
+
+h3{
+	text-indent:20px;
+	text-align: justify;
+	color: 	#8B4513;
+	font: 14pt serif;
+}
+
+body{
+	background-color: #F5F5F5;
+}
