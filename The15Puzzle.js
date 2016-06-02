@@ -121,9 +121,9 @@ $(function(){
     newgame(); // Заполняем и перемешиваем блоки при загрузке страницы
     
     //Перемешиваем блоки при нажатии на кнопку "Новая игра"	
-	$('#newGame').on('click', function(){
-            newgame();
-	});
+    $('#newGame').on('click', function(){
+        newgame();
+    });
 
     //Передвигаем нажатый блок
     $('.block').on('click', function(){
