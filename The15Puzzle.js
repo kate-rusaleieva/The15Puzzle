@@ -55,10 +55,10 @@ $(function(){
     };
 
     function newgame(){
-        array = [];array1 = []; //Обнуляем массивы
+        array = []; array1 = []; //Обнуляем массивы
         ///Перебираем все созданные блоки, заполняем их значениями и формируем массивы
         $('.block').each(function(i){       
-            if(i<$('.block').length - 1){
+            if(i < $('.block').length - 1){
                 array.push(i + 1);
                 array1.push(i + 1);
                 $(this).text(i + 1);
