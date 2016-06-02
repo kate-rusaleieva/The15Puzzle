@@ -1,13 +1,12 @@
-$(function() {
+$(function(){
     var array;//Массив для игры
     var array1; //Массив для проверки на победу
-    var col;var row;//Переменные для определения координат пустого блока
-    var row1;var col1;//Переменные для определения координат нажатого блока
+    var colNull;var rowNull;//Переменные для определения координат пустого блока
     var blockSize=70;
 
     function step(direction){
          //Определяем индекс пустого блока в массиве
-         for (var i=0;i<15;i++){
+         for (var i = 0; i < 15; i++){
             if (array[i] == ''){
                 break; //Выход, если пустой блок найден
             };
@@ -18,35 +17,35 @@ $(function() {
                 $('.block' + array[i - 1]);
                 array[i] = array[i - 1];
                 array[i - 1] = '';
-                col--;
+                colNull--;
                 i--;
             }break;
             case'right':{
                 $('.block' + array[i + 1]);
                 array[i] = array[i + 1];
                 array[i + 1] = '';
-                col++;
+                colNull++;
                 i++;
             }break;
             case'up':{
                 $('.block' + array[i - 4]);
                 array[i] = array[i - 4];
                 array[i - 4] = '';
-                row--;
+                rowNull--;
                 i -= 4;
             }break;
             case'down':{
                 $('.block' + array[i + 4]);
                 array[i] = array[i + 4];
-                array[i +4] = '';
-                row++;
+                array[i + 4] = '';
+                rowNull++;
                 i += 4;
             }break;
         };
     };
 
     function write(){
-        for(var i=0;i<15;i++){
+        for(var i = 0; i < 15; i++){
             array.push(array[i]);//Перезапись массива
             $('.block').each(function(){        
                 $(this).text(array[i]); //Меняем значения блоков
@@ -59,10 +58,10 @@ $(function() {
         array=[];array1=[]; //Обнуляем массивы
         ///Перебираем все созданные блоки, заполняем их значениями и формируем массивы
         $('.block').each(function(i){       
-            if(i<$('.block').length-1){
-                array.push(i+1);
-                array1.push(i+1);
-                $(this).text(i+1);
+            if(i<$('.block').length - 1){
+                array.push(i + 1);
+                array1.push(i + 1);
+                $(this).text(i + 1);
             }
             else{
                 array.push('');
@@ -72,9 +71,9 @@ $(function() {
         });
         //Определяем коoрдинаты пустого блока 
         $('.block').each(function(){    
-            if($(this).text()==''){
-                row = Math.ceil((parseInt($(this).css('top'))+1) / blockSize); 
-                col = Math.ceil((parseInt($(this).css('left'))+1) / blockSize);
+            if($(this).text() == ''){
+                rowNull = Math.ceil((parseInt($(this).css('top')) + 1) / blockSize); 
+                colNull = Math.ceil((parseInt($(this).css('left')) + 1) / blockSize);
             };
         });
         var blockDirection;
@@ -85,22 +84,22 @@ $(function() {
             blockDirection = Math.floor(Math.random() * (4) + 1);
             switch(blockDirection){
                 case 1:{ 
-                    if (col - 1 > 0) {
+                    if(colNull - 1 > 0){
                         step('left');
                     };
                 }break;
                 case 2:{ 
-                    if (col + 1 <= 4) {
+                    if(colNull + 1 <= 4){
                         step('right');
                     };
                 }break;
                 case 3:{ 
-                    if (row - 1 > 0) {
+                    if(rowNull - 1 > 0){
                        step('up');
                     };
                 }break;
                 case 4:{ 
-                    if (row + 1 <= 4) {
+                    if(rowNull + 1 <= 4){
                         step('down');
                     };
                 }break;
@@ -115,7 +114,7 @@ $(function() {
             $('<div></div>')
                 .addClass('block')
                     .attr('id', x.toString() + '-' + y.toString())
-                        .css({left:(y-1)*blockSize, top:(x-1)*blockSize})
+                        .css({ top:(x - 1)*blockSize, left:(y - 1)*blockSize})
                             .appendTo('#field')
         };
     };
@@ -129,39 +128,39 @@ $(function() {
     //Передвигаем нажатый блок
     $('.block').on('click', function(){
         //Определяем координаты нажатого блока
-        row1 = Math.ceil((parseInt($(this).css('top'))+1) / blockSize);
-        col1 = Math.ceil((parseInt($(this).css('left'))+1) / blockSize);
-        //Определяем координаты пустой клетки
+        var rowPush = Math.ceil((parseInt($(this).css('top')) + 1) / blockSize);
+        var colPush = Math.ceil((parseInt($(this).css('left')) + 1) / blockSize);
+        //Определяем координаты пустой блока
         $('.block').each(function(){	
-			if($(this).text()==''){
-                row = Math.ceil((parseInt($(this).css('top'))+1) / blockSize); 
-                col = Math.ceil((parseInt($(this).css('left'))+1) / blockSize);
+			if($(this).text() == ''){
+                rowNull = Math.ceil((parseInt($(this).css('top')) + 1) / blockSize); 
+                colNull = Math.ceil((parseInt($(this).css('left')) + 1) / blockSize);
 			};
 		});
         //Определяем, в какую сторону можно переместить блок и перемещаем его 
-		if((col-col1==1)&& (row-row1==0)){
+		if((colNull - colPush == 1) && (rowNull - rowPush == 0)){
             step('left'); 
-        }else if((col1-col==1)&& (row-row1==0)){
+        }else if((colPush - colNull == 1) && (rowNull - rowPush == 0)){
             step('right');
-        }else if((col1-col==0) && (row-row1==1)){
+        }else if((colPush - colNull == 0) && (rowNull - rowPush == 1)){
             step('up');
-        }else if((col1-col==0) && (row1-row==1)) {
+        }else if((colPush - colNull == 0) && (rowPush - rowNull == 1)){
             step('down');
         };
         write();
 
         //Проверка на победу
-        var victory=true;
-        for(var i=0;i<=15;i++){
+        var victory = true;
+        for(var i = 0; i <= 15; i++){
             //Если значения сформированного и исходного массивов не совпадают, меняем значение переменной
-            if(array1[i]!==array[i]){
-             	victory=false;
+            if(array1[i] !== array[i]){
+             	victory = false;
              	break;   	
             };
         };
         //Если значение переменной не изменилось, объявляем о победе
         if(victory){
-            alert("Вы победили!!!!!")
+            alert("Вы победили!")
         };    
     });			
 })
