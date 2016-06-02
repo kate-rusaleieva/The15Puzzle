@@ -6,7 +6,7 @@ $(function(){
 
     function step(direction){
          //Определяем индекс пустого блока в массиве
-         for (var i = 0; i < 15; i++){
+        for (var i = 0; i < 15; i++){
             if (array[i] == ''){
                 break; //Выход, если пустой блок найден
             };
@@ -55,7 +55,7 @@ $(function(){
     };
 
     function newgame(){
-        array=[];array1=[]; //Обнуляем массивы
+        array = [];array1 = []; //Обнуляем массивы
         ///Перебираем все созданные блоки, заполняем их значениями и формируем массивы
         $('.block').each(function(i){       
             if(i<$('.block').length - 1){
@@ -131,14 +131,14 @@ $(function(){
         var rowPush = Math.ceil((parseInt($(this).css('top')) + 1) / blockSize);
         var colPush = Math.ceil((parseInt($(this).css('left')) + 1) / blockSize);
         //Определяем координаты пустой блока
-        $('.block').each(function(){	
-			if($(this).text() == ''){
+        $('.block').each(function(){
+            if($(this).text() == ''){
                 rowNull = Math.ceil((parseInt($(this).css('top')) + 1) / blockSize); 
                 colNull = Math.ceil((parseInt($(this).css('left')) + 1) / blockSize);
 			};
 		});
         //Определяем, в какую сторону можно переместить блок и перемещаем его 
-		if((colNull - colPush == 1) && (rowNull - rowPush == 0)){
+        if((colNull - colPush == 1) && (rowNull - rowPush == 0)){
             step('left'); 
         }else if((colPush - colNull == 1) && (rowNull - rowPush == 0)){
             step('right');
