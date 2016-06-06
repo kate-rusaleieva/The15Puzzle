@@ -1,43 +1,43 @@
 $(function(){
-    var array;//Массив для игры
-    var array1; //Массив для проверки на победу
+    var arrayCurrent;//Массив для игры
+    var arrayVictory; //Массив для проверки на победу
     var colNull;var rowNull;//Переменные для определения координат пустого блока
     var blockSize=70;
 
     function step(direction){
          //Определяем индекс пустого блока в массиве
         for (var i = 0; i < 15; i++){
-            if (array[i] == ''){
+            if (arrayCurrent[i] == ''){
                 break; //Выход, если пустой блок найден
             };
         };
         //Перемещаем пустой (или нажатый) блок 
         switch(direction){
             case'left':{
-                $('.block' + array[i - 1]);
-                array[i] = array[i - 1];
-                array[i - 1] = '';
+                $('.block' + arrayCurrent[i - 1]);
+                arrayCurrent[i] = arrayCurrent[i - 1];
+                arrayCurrent[i - 1] = '';
                 colNull--;
                 i--;
             }break;
             case'right':{
-                $('.block' + array[i + 1]);
-                array[i] = array[i + 1];
-                array[i + 1] = '';
+                $('.block' + arrayCurrent[i + 1]);
+                arrayCurrent[i] = arrayCurrent[i + 1];
+                arrayCurrent[i + 1] = '';
                 colNull++;
                 i++;
             }break;
             case'up':{
-                $('.block' + array[i - 4]);
-                array[i] = array[i - 4];
-                array[i - 4] = '';
+                $('.block' + arrayCurrent[i - 4]);
+                arrayCurrent[i] = arrayCurrent[i - 4];
+                arrayCurrent[i - 4] = '';
                 rowNull--;
                 i -= 4;
             }break;
             case'down':{
-                $('.block' + array[i + 4]);
-                array[i] = array[i + 4];
-                array[i + 4] = '';
+                $('.block' + arrayCurrent[i + 4]);
+                arrayCurrent[i] = arrayCurrent[i + 4];
+                arrayCurrent[i + 4] = '';
                 rowNull++;
                 i += 4;
             }break;
@@ -46,26 +46,26 @@ $(function(){
 
     function write(){
         for(var i = 0; i < 15; i++){
-            array.push(array[i]);//Перезапись массива
+            arrayCurrent.push(arrayCurrent[i]);//Перезапись массива
             $('.block').each(function(){        
-                $(this).text(array[i]); //Меняем значения блоков
+                $(this).text(arrayCurrent[i]); //Меняем значения блоков
                 i++;
             });  
         };
     };
 
     function newgame(){
-        array = []; array1 = []; //Обнуляем массивы
+        arrayCurrent = []; arrayVictory = []; //Обнуляем массивы
         ///Перебираем все созданные блоки, заполняем их значениями и формируем массивы
         $('.block').each(function(i){       
             if(i < $('.block').length - 1){
-                array.push(i + 1);
-                array1.push(i + 1);
+                arrayCurrent.push(i + 1);
+                arrayVictory.push(i + 1);
                 $(this).text(i + 1);
             }
             else{
-                array.push('');
-                array1.push('');
+                arrayCurrent.push('');
+                arrayVictory.push('');
                 $(this).text('');
             };    
         });
@@ -155,7 +155,7 @@ $(function(){
         var victory = true;
         for(var i = 0; i <= 15; i++){
             //Если значения сформированного и исходного массивов не совпадают, меняем значение переменной
-            if(array1[i] !== array[i]){
+            if(arrayVictory[i] !== arrayCurrent[i]){
              	victory = false;
              	break;   	
             };
@@ -164,5 +164,5 @@ $(function(){
         if(victory){
             alert("Вы победили!")
         };    
-    });			
+    });
 })
